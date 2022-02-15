@@ -94,6 +94,12 @@ collisionDetect() {
 }
 
 }
+//for each ball, we need to check every other ball to see if it has collided with the current ball
+//for...of loop to loop thorugh all the balls in the ball[] array
+// (!this === ball) is to make sure we aren't comparing a ball against itself
+//the next is common code for checking if two circle's areas overlap
+//if collision is found, color properties of both circles are set to a new random color
+
 
 const balls = [];
 
