@@ -79,6 +79,20 @@ class Ball {
 // 4. is the y-coord less than 0 --> ball will go off bottom
 // size is subtracted from this calculation because we want the edge of the ball to bounce, not the center point
 
+collisionDetect() {
+    for (const ball of balls) {
+        if (!(this === ball)) {
+            const dx = this.x - ball.x;
+            const dy = this.y - ball.y;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+
+            if (distance < this.size + ball.size) {
+                ball.color = this.color = randomRGB();
+            }
+        }
+    }
+}
+
 }
 
 const balls = [];
@@ -107,9 +121,11 @@ function loop() {
     for (const ball of balls) {
         ball.draw();
         ball.update();
+        ball.collisionDetect();
     }
     requestAnimationFrame(loop);
 } 
+
 loop();
 
 //animation loops are typical: serves to update the info in the program
