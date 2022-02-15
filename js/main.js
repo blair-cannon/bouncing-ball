@@ -93,7 +93,7 @@ while (balls.length < 25) {
         random(0 + size,height - size),
         random(-7,7),
         random(-7,7),
-        randomRBG(),
+        randomRGB(),
         size 
     );
 
