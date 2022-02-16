@@ -15,7 +15,7 @@ const random = (min, max) =>
     Math.floor(Math.random() * (max - min +1)) + min;
 
 
-//function to generate random color
+//function to generate random color b
 
 const randomRGB = () => 
     `rgb(${random(0, 255)},${random(0, 255)},${random(0, 255)})`;
