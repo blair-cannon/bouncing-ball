@@ -11,15 +11,15 @@ const height = canvas.height = window.innerHeight;
 
 //function to generate random number
 
-function random(min, max) {
-    return Math.floor(Math.random() * (max - min +1)) + min;
-}
+const random = (min, max) => 
+    Math.floor(Math.random() * (max - min +1)) + min;
+
 
 //function to generate random color
 
-function randomRGB() {
-    return `rgb(${random(0, 255)},${random(0, 255)},${random(0, 255)})`;
-}
+const randomRGB = () => 
+    `rgb(${random(0, 255)},${random(0, 255)},${random(0, 255)})`;
+
 
 class Ball {
 
@@ -120,7 +120,7 @@ while (balls.length < 25) {
         //pushes balls until there are 25 balls created onto the array
 }
 
-function loop() {
+const loop = function () {
     ctx.fillStyle = 'rgba(0, 0, 0, 0.25)';
     ctx.fillRect(0, 0, width, height);
 
@@ -130,7 +130,7 @@ function loop() {
         ball.collisionDetect();
     }
     requestAnimationFrame(loop);
-} 
+}
 
 loop();
 
