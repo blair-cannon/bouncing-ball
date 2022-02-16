@@ -15,23 +15,35 @@ const random = (min, max) =>
     Math.floor(Math.random() * (max - min +1)) + min;
 
 
-//function to generate random color b
+//function to generate random color 
 
 const randomRGB = () => 
     `rgb(${random(0, 255)},${random(0, 255)},${random(0, 255)})`;
 
+class Shape {
 
-class Ball {
-
-//initialize the properties each ball needs in order to function in our program
+//shape object will have a constructor that our balls and evil circle can inherit from (things that evil ball and regular balls share are inherited here)
     
-    constructor(x, y, velX, velY, color, size) {
+    constructor(x, y, velX, velY) {
         this.x = x;
         this.y = y;
         this.velX = velX;
         this.velY = velY;
+    }
+}
+
+
+class Ball extends Shape {
+
+// class childClass extends parentClass https://www.w3schools.com/jsref/jsref_class_extends.asp#:~:text=The%20extends%20keyword%20is%20used,you%20create%20a%20new%20class.
+//initialize the properties each ball needs in order to function in our program
+    
+    constructor(x, y, velX, velY, color, size) {
+        super(x, y, velX, velY);
+        //super() is used to call the Shape constructor passing in the x, y, velX, and velY arguments from above
         this.color = color;
         this.size = size;
+        this.exists = true; //boolean used to know if the ball exists or is eaten by the evil circle, initially it is true because it exists at start
     }
 
 //the horizontal and vertical coordinates where the ball starts on the screen
@@ -81,7 +93,8 @@ class Ball {
 
 collisionDetect() {
     for (const ball of balls) {
-        if (!(this === ball)) {
+        if (!(this === ball) && ball.exists)
+         {
             const dx = this.x - ball.x;
             const dy = this.y - ball.y;
             const distance = Math.sqrt(dx * dx + dy * dy);
@@ -94,12 +107,82 @@ collisionDetect() {
 }
 
 }
+//updated to only consider balls that exist
 //for each ball, we need to check every other ball to see if it has collided with the current ball
 //for...of loop to loop thorugh all the balls in the ball[] array
 // (!this === ball) is to make sure we aren't comparing a ball against itself
 //the next is common code for checking if two circle's areas overlap
 //if collision is found, color properties of both circles are set to a new random color
 
+class EvilCircle extends Shape {
+    constructor(x, y) {
+        super(x, y, 20, 20);
+        //velX and velY hardcoded to 20
+        this.color = 'white';
+        this.size = 10;
+    
+
+            window.addEventListener('keydown', (e) => {
+                switch(e.key) {
+                    case '37':
+                        this.x -= this.velX;
+                        break;
+                    case '39': 
+                        this.x += this.velX;
+                        break;
+                    case '38':
+                        this.y -= this.velY;
+                        break;
+                    case '40':
+                        this.y += this.velY;
+                        break;
+        }
+    });
+    }
+    //key codes for arrow keys Left, Up, Right, Down are 37, 38, 39, 40
+    //this adds a key down event to the window so that when a key is pressed,
+    //the event key is consulted to see which key is pressed and if it is one of the specified keys,
+    //the evil circle will move
+        draw() {
+            ctx.beginPath();
+            ctx.strokeStyle = this.color;
+            ctx.arc(this.x, this.y, this.size, 0, 2 * Math.PI);
+            ctx.stroke();
+            ctx.lineWidth = 3;
+        }
+        //draws the oject instance on the canvas
+        // fillStyle and fill are changed to stroke so that it is not filled in but just an outline
+
+        checkBounds() {
+            if ((this.x + this.size) >= width) {
+                this.x = this.x - this.size;
+            }
+            if ((this.x - this.size) <= 0) {
+                this.x = this.x + this.size;
+            }
+            if ((this.y + this.size) >= height) {
+                this.y = this.y - this.size;
+            }
+            if ((this.y - this.size) <= 0) {
+                this.y = this.y + this.size;
+            }
+        }
+
+        collisionDetect() {
+            for (const ball of balls) {
+                if (ball.exists)
+                 {
+                    const dx = this.x - ball.x;
+                    const dy = this.y - ball.y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+        
+                    if (distance < this.size + ball.size) {
+                        ball.exists = false;
+                    }
+                }
+            }
+        }
+}
 
 const balls = [];
 
@@ -120,17 +203,33 @@ while (balls.length < 25) {
         //pushes balls until there are 25 balls created onto the array
 }
 
+const evilCircle = new EvilCircle(
+    random(0, width),
+    random(0, height),
+    //creates a new evilCircle object instance so that the evil circle is in the program
+);
+
+
 const loop = function () {
     ctx.fillStyle = 'rgba(0, 0, 0, 0.25)';
     ctx.fillRect(0, 0, width, height);
 
     for (const ball of balls) {
+        if(ball.exists) {
         ball.draw();
         ball.update();
         ball.collisionDetect();
-    }
+         }
+         //these functions are only called if the ball exists
+     }
+
+     evilCircle.draw();
+     evilCircle.checkBounds(); 
+     evilCircle.collisionDetect();
+     //the evil ball instance's draw, checkBounds, and collisionDetection methods are called on every iteration of the loop 
+
     requestAnimationFrame(loop);
-}
+};
 
 loop();
 
