@@ -2,6 +2,7 @@
 
 const canvas = document.querySelector('canvas');
 const ctx = canvas.getContext('2d');
+const para = document.querySelector('p');
 
 //ctx = canvas context (aka like the paper for drawing)
 // ctx is the object that directly represents the drawing area of the canvas and allows us to draw 2D shapes on it.
@@ -91,21 +92,20 @@ class Ball extends Shape {
 // 4. is the y-coord less than 0 --> ball will go off bottom
 // size is subtracted from this calculation because we want the edge of the ball to bounce, not the center point
 
-collisionDetect() {
-    for (const ball of balls) {
-        if (!(this === ball) && ball.exists)
-         {
-            const dx = this.x - ball.x;
-            const dy = this.y - ball.y;
-            const distance = Math.sqrt(dx * dx + dy * dy);
+    collisionDetect() {
+        for (const ball of balls) {
+            if (!(this === ball) && ball.exists)
+            {
+                const dx = this.x - ball.x;
+                const dy = this.y - ball.y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
 
-            if (distance < this.size + ball.size) {
-                ball.color = this.color = randomRGB();
+                if (distance < this.size + ball.size) {
+                    ball.color = this.color = randomRGB();
             }
         }
     }
 }
-
 }
 //updated to only consider balls that exist
 //for each ball, we need to check every other ball to see if it has collided with the current ball
@@ -124,16 +124,16 @@ class EvilCircle extends Shape {
 
             window.addEventListener('keydown', (e) => {
                 switch(e.key) {
-                    case '37':
+                    case "ArrowLeft":
                         this.x -= this.velX;
                         break;
-                    case '39': 
+                    case "ArrowRight": 
                         this.x += this.velX;
                         break;
-                    case '38':
+                    case "ArrowUp":
                         this.y -= this.velY;
                         break;
-                    case '40':
+                    case "ArrowDown":
                         this.y += this.velY;
                         break;
         }
@@ -178,6 +178,7 @@ class EvilCircle extends Shape {
         
                     if (distance < this.size + ball.size) {
                         ball.exists = false;
+                        
                     }
                 }
             }
@@ -185,7 +186,7 @@ class EvilCircle extends Shape {
 }
 
 const balls = [];
-
+let count = 0;
 while (balls.length < 25) {
     const size = random(10,20);
     const ball = new Ball(
@@ -201,7 +202,7 @@ while (balls.length < 25) {
 
         balls.push(ball);
         //pushes balls until there are 25 balls created onto the array
-}
+    }
 
 const evilCircle = new EvilCircle(
     random(0, width),
@@ -227,6 +228,13 @@ const loop = function () {
      evilCircle.checkBounds(); 
      evilCircle.collisionDetect();
      //the evil ball instance's draw, checkBounds, and collisionDetection methods are called on every iteration of the loop 
+
+     let counter = 0;
+     for (const ball of balls) {
+         if (ball.exists) counter++;
+
+     para.textContent = "Ball Count: "+counter;
+     }
 
     requestAnimationFrame(loop);
 };
