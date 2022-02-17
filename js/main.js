@@ -3,6 +3,7 @@
 const canvas = document.querySelector('canvas');
 const ctx = canvas.getContext('2d');
 const para = document.querySelector('p');
+//var img = document.getElementById("pig");
 
 //ctx = canvas context (aka like the paper for drawing)
 // ctx is the object that directly represents the drawing area of the canvas and allows us to draw 2D shapes on it.
@@ -76,10 +77,12 @@ class Ball extends Shape {
             this.velX = -(this.velX);
         }
         if ((this.y + this.size) >= height) {
-            this.velY = -(this.velY);
+           this.velY = -(this.velY);
+        //    this.y = 0
         }
         if ((this.y - this.size) <= 0) {
             this.velY = -(this.velY);
+            // this.y = canvas.height
         }
         this.x += this.velX;
         this.y += this.velY;
@@ -122,42 +125,73 @@ class EvilCircle extends Shape {
         this.color = 'white';
         this.size = 10;
     
+    
 
             window.addEventListener('keydown', (e) => {
                 switch(e.key) {
                     case "ArrowLeft":
-                        this.x -= this.velX;
+                        this.x.evilCircle[0] -= this.velX.evilCircle[0];
                         break;
                     case "ArrowRight": 
-                        this.x += this.velX;
+                        this.x.evilCircle[0] += this.velX.evilCircle[0];
                         break;
                     case "ArrowUp":
-                        this.y -= this.velY;
+                        this.y.evilCircle[0] -= this.velY.evilCircle[0];
                         break;
                     case "ArrowDown":
-                        this.y += this.velY;
-                        break;              
-                     }
+                        this.y.evilCircle[0] += this.velY.evilCircle[0];
+                        break;  
+                        case "a":
+                            this.x.evilCircle[1] -= this.velX.evilCircle[1];
+                            break;
+                        case "d": 
+                            this.x.evilCircle[1] += this.velX.evilCircle[1];
+                            break;
+                        case "w":
+                            this.y.evilCircle[1] -= this.velY.evilCircle[1];
+                            break;
+                        case "s":
+                            this.y.evilCircle[1] += this.velY.evilCircle[1];
+                            break;              
+                         }             
+                     
 
                 if ("ArrowLeft" && "ArrowUp") {
-                    this.x -= this.velX;
-                    this.y -= this.velY;
+                    this.x.evilCircle[0] -= this.velX.evilCircle[0];
+                    this.y.evilCircle[0] -= this.velY.evilCircle[0];
                 } 
                 if("ArrowLeft" && "ArrowDown") {
-                    this.x -= this.velX;
-                    this.y += this.velY;
+                    this.x.evilCircle[0] -= this.velX.evilCircle[0];
+                    this.y.evilCircle[0] += this.velY.evilCircle[0];
                 }
                 if ("ArrowRight" && "ArrowUp") {
-                    this.x += this.velX;
-                    this.y -= this.velY;
+                    this.x.evilCircle[0] += this.velX.evilCircle[0];
+                    this.y.evilCircle[0] -= this.velY.evilCircle[0];
                 }
                 if ("ArrowRight" && "ArrowDown") {
-                    this.x += this.velX;
-                    this.y += this.velY;
-                }
+                    this.x.evilCircle[0] += this.velX.evilCircle[0];
+                    this.y.evilCircle[0] += this.velY.evilCircle[0];
                 //diagonals
+                }
+                if ("a" && "w") {
+                    this.x.evilCircle[1] -= this.velX.evilCircle[1];
+                    this.y.evilCircle[1] -= this.velY.evilCircle[1];
+                } 
+                if("a" && "s") {
+                    this.x.evilCircle[1] -= this.velX.evilCircle[1];
+                    this.y.evilCircle[1] += this.velY.evilCircle[1];
+                }
+                if ("d" && "w") {
+                    this.x.evilCircle[1] += this.velX.evilCircle[1];
+                    this.y.evilCircle[1] -= this.velY.evilCircle[1];
+                }
+                if ("d" && "s") {
+                    this.x.evilCircle[1] += this.velX.evilCircle[1];
+                    this.y.evilCircle[1] += this.velY.evilCircle[1];
+                }
     });
     }
+
     //key codes for arrow keys Left, Up, Right, Down are 37, 38, 39, 40
     //this adds a key down event to the window so that when a key is pressed,
     //the event key is consulted to see which key is pressed and if it is one of the specified keys,
@@ -223,11 +257,16 @@ while (balls.length < 25) {
         //pushes balls until there are 25 balls created onto the array
     }
 
+const evilCircles = [];
+while (evilCircles.length < 2) {
 const evilCircle = new EvilCircle(
     random(0, width),
-    random(0, height),
+    random(0, height)
+)
     //creates a new evilCircle object instance so that the evil circle is in the program
-);
+    evilCircles.push(evilCircle);
+
+}
 
 
 const loop = function () {
@@ -242,11 +281,14 @@ const loop = function () {
          }
          //these functions are only called if the ball exists
      }
-
+     for (const evilCircle of evilCircles) {
      evilCircle.draw();
      evilCircle.checkBounds(); 
      evilCircle.collisionDetect();
+     }
      //the evil ball instance's draw, checkBounds, and collisionDetection methods are called on every iteration of the loop 
+
+
 
      let counter = 0;
      for (const ball of balls) {
