@@ -102,6 +102,7 @@ class Ball extends Shape {
 
                 if (distance < this.size + ball.size) {
                     ball.color = this.color = randomRGB();
+                    ball.size = this.size = 20;
             }
         }
     }
@@ -135,8 +136,26 @@ class EvilCircle extends Shape {
                         break;
                     case "ArrowDown":
                         this.y += this.velY;
-                        break;
-        }
+                        break;              
+                     }
+
+                if ("ArrowLeft" && "ArrowUp") {
+                    this.x -= this.velX;
+                    this.y -= this.velY;
+                } 
+                if("ArrowLeft" && "ArrowDown") {
+                    this.x -= this.velX;
+                    this.y += this.velY;
+                }
+                if ("ArrowRight" && "ArrowUp") {
+                    this.x += this.velX;
+                    this.y -= this.velY;
+                }
+                if ("ArrowRight" && "ArrowDown") {
+                    this.x += this.velX;
+                    this.y += this.velY;
+                }
+                //diagonals
     });
     }
     //key codes for arrow keys Left, Up, Right, Down are 37, 38, 39, 40
@@ -188,7 +207,7 @@ class EvilCircle extends Shape {
 const balls = [];
 let count = 0;
 while (balls.length < 25) {
-    const size = random(10,20);
+    const size = random(5,10);
     const ball = new Ball(
         //ball position always drawn at least one ball width 
         //away from edge to avoid drawing error
