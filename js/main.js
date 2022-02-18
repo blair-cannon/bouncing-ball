@@ -175,7 +175,7 @@ while (balls.length < 25) {
         //away from edge to avoid drawing error
         random(0 + size,width- size),
         random(0 + size,height - size),
-        random(-7,7),
+        random(-7,7), //velocity between -7 and 7
         random(-7,7),
        // randomRGB(),
         color = 'white',
