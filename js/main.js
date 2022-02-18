@@ -9,16 +9,15 @@ const para2 = document.querySelector('evilCircle2score');
 const width = canvas.width = window.innerWidth;
 const height = canvas.height = window.innerHeight;
 
-//function to generate random number
+
 
 const random = (min, max) => 
-    Math.floor(Math.random() * (max - min +1)) + min;
+    Math.floor(Math.random() * (max - min +1)) + min; //function to generate random number
 
 
-//function to generate random color 
 
 const randomRGB = () => 
-    `rgb(${random(0, 255)},${random(0, 255)},${random(0, 255)})`;
+    `rgb(${random(0, 255)},${random(0, 255)},${random(0, 255)})`;  //function to generate random color 
 
 class Shape {
 
@@ -178,25 +177,11 @@ while (balls.length < 25) {
         random(-7,7),
         random(-7,7),
        // randomRGB(),
-       color = 'white',
+        color = 'white',
         size, 
     );
-
-        balls.push(ball);
-        //pushes balls until there are 25 balls created onto the array
-    }
-
-// const evilCircles = [];
-// while (evilCircles.length < 2) {
-// const evilCircle = new EvilCircle(
-//     random(0, width),
-//     random(0, height)
-// )
-//     //creates a new evilCircle object instance so that the evil circle is in the program
-//     evilCircles.push(evilCircle);
-
-// }
-let evil1counter = 0;
+        balls.push(ball);  //pushes balls until there are 25 balls created onto the array
+}
 
 const evilCircle1 = new EvilCircle(
         random(0, width),
@@ -234,16 +219,15 @@ const evilCircle1 = new EvilCircle(
                         evilCircle1.x += evilCircle1.velX;
                         evilCircle1.y += evilCircle1.velY;
                     }
-                }));
-
-
-
-
-
+                
+        })
+);
     //key codes for arrow keys Left, Up, Right, Down are 37, 38, 39, 40
     //this adds a key down event to the window so that when a key is pressed,
     //the event key is consulted to see which key is pressed and if it is one of the specified keys,
     //the evil circle will move
+    //conditional statements used for diagonals
+
 const evilCircle2 = new EvilCircle(
     random(0, width),
     random(0, height),
@@ -251,36 +235,36 @@ const evilCircle2 = new EvilCircle(
 
     window.addEventListener('keydown', (e) => {
         switch(e.key) {
-    case "a":
-        evilCircle2.x -= evilCircle2.velX;
-        break;
-    case "d": 
-        evilCircle2.x += evilCircle2.velX;
-        break;
-    case "w":
-        evilCircle2.y -= evilCircle2.velY;
-        break;
-    case "s":
-        evilCircle2.y += evilCircle2.velY;
-        break;              
-     }  
-     if ("a" && "w") {
-        evilCircle2.x -= evilCircle2.velX;
-        evilCircle2.y -= evilCircle2.velY;
-    } 
-    if("a" && "s") {
-        evilCircle2.x -= evilCircle2.velX;
-        evilCircle2.y += evilCircle2.velY;
-    }
-    if ("d" && "w") {
-        evilCircle2.x += evilCircle2.velX;
-        evilCircle2.y -= evilCircle2.velY;
-    }
-    if ("d" && "s") {
-        evilCircle2.x += evilCircle2.velX;
-        evilCircle2.y += evilCircle2.velY;
-    }
-})
+            case "a":
+                evilCircle2.x -= evilCircle2.velX;
+                break;
+            case "d": 
+                evilCircle2.x += evilCircle2.velX;
+                break;
+            case "w":
+                evilCircle2.y -= evilCircle2.velY;
+                break;
+            case "s":
+                evilCircle2.y += evilCircle2.velY;
+                break;              
+        }  
+            if ("a" && "w") {
+                evilCircle2.x -= evilCircle2.velX;
+                evilCircle2.y -= evilCircle2.velY;
+            } 
+            if("a" && "s") {
+                evilCircle2.x -= evilCircle2.velX;
+                evilCircle2.y += evilCircle2.velY;
+            }
+            if ("d" && "w") {
+                evilCircle2.x += evilCircle2.velX;
+                evilCircle2.y -= evilCircle2.velY;
+            }
+            if ("d" && "s") {
+                evilCircle2.x += evilCircle2.velX;
+                evilCircle2.y += evilCircle2.velY;
+            }
+    })
 
 );
 
@@ -293,16 +277,11 @@ const loop = function () {
         if(ball.exists) {
         ball.draw();
         ball.update();
-        ball.collisionDetect();
+        ball.collisionDetect(); //these functions are only called if the ball exists, to update them in the loop
         }
-         //these functions are only called if the ball exists
-     }
-    //  for (const evilCircle of evilCircles) {
-    //  evilCircle.draw();
-    //  evilCircle.checkBounds(); 
-    //  evilCircle.collisionDetect();
-    //  }
-     //the evil ball instance's draw, checkBounds, and collisionDetection methods are called on every iteration of the loop 
+         
+    }
+
     evilCircle1.draw();
     evilCircle1.checkBounds();
     evilCircle1.collisionDetect();
@@ -310,16 +289,15 @@ const loop = function () {
     evilCircle2.draw();
     evilCircle2.checkBounds();
     evilCircle2.collisionDetect();
-    evilCircle2score.textContent = "SCORE: "+evilCircle2.score;
+    evilCircle2score.textContent = "SCORE: "+evilCircle2.score; //the evil ball instance's draw, checkBounds, and collisionDetection methods are called on every iteration of the loop 
 
 
 
-     let counter = 0;
-     for (const ball of balls) {
-         if (ball.exists) counter++;
-
-     ballCount.textContent = "Ball Count: "+counter;
-     }
+    let counter = 0;
+        for (const ball of balls) {
+            if (ball.exists) counter++;
+            ballCount.textContent = "Ball Count: "+counter;
+        }
 
 
     requestAnimationFrame(loop);
