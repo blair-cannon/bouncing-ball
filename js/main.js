@@ -74,17 +74,21 @@ class Ball extends Shape {
     update() {
         if ((this.x + this.size) >= width) {
             this.velX = -(this.velX);
+            // console.log("RIGHT");
         }
         if ((this.x - this.size) <= 0) {
             this.velX = -(this.velX);
+            // console.log("LEFT");
         }
-        if ((this.y + this.size) >= height) {
-           this.velY = -(this.velY);
-        //    this.y = 0
+        if ((this.y + this.size) > height) {
+           //this.velY = -(this.velY);
+            this.y = 0 + this.size;
+            console.log("BOTTOM");
         }
-        if ((this.y - this.size) <= 0) {
-            this.velY = -(this.velY);
-            // this.y = canvas.height
+        if ((this.y - this.size) < 0) {
+            //this.velY = -(this.velY);
+            this.y = canvas.height - this.size; // - this.size so that the bottom of the ball touches the height (bottom) instead of the top touching the bottom and not in view
+            console.log("TOP");
         }
         this.x += this.velX;
         this.y += this.velY;
@@ -93,8 +97,8 @@ class Ball extends Shape {
 // If it has, we reverse the polarity of the relevant velocity to make the ball travel in the opposite direction. 
 // 1. is the x-coord greater than width --> ball will go off right edge
 // 2. is the x-coord less than 0 --> ball will go off left edge
-// 3. is the y-coord greater than height --> ball will go off top
-// 4. is the y-coord less than 0 --> ball will go off bottom
+// 3. is the y-coord greater than height --> ball will go off bottom
+// 4. is the y-coord less than 0 --> ball will go off top
 // size is subtracted from this calculation because we want the edge of the ball to bounce, not the center point
 
     collisionDetect() {
@@ -106,12 +110,12 @@ class Ball extends Shape {
                 const distance = Math.sqrt(dx * dx + dy * dy);
 
                 if (distance < this.size + ball.size) {
-                   ball.color = this.color = randomRGB();
+                    ball.color = this.color = randomRGB();
                     ball.size = this.size = 20;
+                }
             }
         }
     }
-}
 }
 //updated to only consider balls that exist
 //for each ball, we need to check every other ball to see if it has collided with the current ball
@@ -124,8 +128,9 @@ class EvilCircle extends Shape {
     constructor(x, y) {
         super(x, y, 20, 20);
         //velX and velY hardcoded to 20
-        this.color = 'white';
+        this.color = color;
         this.size = 10;
+        this.score = 0
     }
         draw() {
             ctx.beginPath();
@@ -162,7 +167,7 @@ class EvilCircle extends Shape {
         
                     if (distance < this.size + ball.size) {
                         ball.exists = false;
-                        
+                        this.score++;
                     }
                 }
             }
@@ -180,8 +185,9 @@ while (balls.length < 25) {
         random(0 + size,height - size),
         random(-7,7),
         random(-7,7),
-        randomRGB(),
-        size 
+       // randomRGB(),
+       color = 'white',
+        size, 
     );
 
         balls.push(ball);
@@ -203,6 +209,8 @@ let evil1counter = 0;
 const evilCircle1 = new EvilCircle(
         random(0, width),
         random(0, height),
+        color = 'red',
+
         window.addEventListener('keydown', (e) => {
             switch(e.key) {
                 case "ArrowLeft":
@@ -247,6 +255,8 @@ const evilCircle1 = new EvilCircle(
 const evilCircle2 = new EvilCircle(
     random(0, width),
     random(0, height),
+    color = 'green',
+
     window.addEventListener('keydown', (e) => {
         switch(e.key) {
     case "a":
@@ -292,7 +302,7 @@ const loop = function () {
         ball.draw();
         ball.update();
         ball.collisionDetect();
-         }
+        }
          //these functions are only called if the ball exists
      }
     //  for (const evilCircle of evilCircles) {
@@ -304,9 +314,11 @@ const loop = function () {
     evilCircle1.draw();
     evilCircle1.checkBounds();
     evilCircle1.collisionDetect();
+    evilCircle1count.textContent = "SCORE: "+evilCircle1.score;
     evilCircle2.draw();
     evilCircle2.checkBounds();
     evilCircle2.collisionDetect();
+    evilCircle2count.textContent = "SCORE: "+evilCircle2.score;
 
 
 
@@ -317,34 +329,6 @@ const loop = function () {
      ballCount.textContent = "Ball Count: "+counter;
      }
 
-     let evil1counter = 0;
-     for (const ball of balls) {
-    if (ball.exists)
-     {
-        const dx = evilCircle1.x - ball.x;
-        const dy = evilCircle1.y - ball.y;
-        const distance = Math.sqrt(dx * dx + dy * dy);
-
-        if (distance < evilCircle1.size + ball.size) 
-            evil1counter++;
-    
-        }
-        evilCircle1count.textContent = "SCORE: "+evil1counter;
-    }
-
-    let evil2counter = 0;
-    for (const ball of balls) {
-   if (ball.exists)
-    {
-       const dx = evilCircle2.x - ball.x;
-       const dy = evilCircle2.y - ball.y;
-       const distance = Math.sqrt(dx * dx + dy * dy);
-
-       if (distance < evilCircle2.size + ball.size) 
-           evil2counter++;
-       }
-       evilCircle2count.textContent = "SCORE: "+evil2counter;
-   }
 
     requestAnimationFrame(loop);
 };
