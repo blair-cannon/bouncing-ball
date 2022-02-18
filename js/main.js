@@ -1,14 +1,10 @@
 //setup canvas
 
 const canvas = document.querySelector('canvas');
-const ctx = canvas.getContext('2d');
+const ctx = canvas.getContext('2d'); //ctx = canvas context (aka like the paper for drawing) , ctx is the object that directly represents the drawing area of the canvas and allows us to draw 2D shapes on it.
 const para = document.querySelector('ballCount');
-const para1 = document.querySelector('evilCircle1count');
-const para2 = document.querySelector('evilCircle2count');
-//var img = document.getElementById("pig");
-
-//ctx = canvas context (aka like the paper for drawing)
-// ctx is the object that directly represents the drawing area of the canvas and allows us to draw 2D shapes on it.
+const para1 = document.querySelector('evilCircle1score');
+const para2 = document.querySelector('evilCircle2score');
 
 const width = canvas.width = window.innerWidth;
 const height = canvas.height = window.innerHeight;
@@ -74,21 +70,17 @@ class Ball extends Shape {
     update() {
         if ((this.x + this.size) >= width) {
             this.velX = -(this.velX);
-            // console.log("RIGHT");
         }
         if ((this.x - this.size) <= 0) {
             this.velX = -(this.velX);
-            // console.log("LEFT");
         }
-        if ((this.y + this.size) > height) {
+        if ((this.y + this.size) > height) { // for the asteroid effect, had to take out the equal signs becuase they were getting stuck stepping into one statement and then the other and never made it back on page
            //this.velY = -(this.velY);
             this.y = 0 + this.size;
-            console.log("BOTTOM");
         }
         if ((this.y - this.size) < 0) {
             //this.velY = -(this.velY);
-            this.y = canvas.height - this.size; // - this.size so that the bottom of the ball touches the height (bottom) instead of the top touching the bottom and not in view
-            console.log("TOP");
+            this.y = height - this.size; // - this.size so that the bottom of the ball touches the height (bottom) instead of the top touching the bottom and not in view
         }
         this.x += this.velX;
         this.y += this.velY;
@@ -137,7 +129,7 @@ class EvilCircle extends Shape {
             ctx.strokeStyle = this.color;
             ctx.arc(this.x, this.y, this.size, 0, 2 * Math.PI);
             ctx.stroke();
-            ctx.lineWidth = 3;
+            ctx.lineWidth = 10;
         }
         //draws the oject instance on the canvas
         // fillStyle and fill are changed to stroke so that it is not filled in but just an outline
@@ -314,11 +306,11 @@ const loop = function () {
     evilCircle1.draw();
     evilCircle1.checkBounds();
     evilCircle1.collisionDetect();
-    evilCircle1count.textContent = "SCORE: "+evilCircle1.score;
+    evilCircle1score.textContent = "SCORE: "+evilCircle1.score;
     evilCircle2.draw();
     evilCircle2.checkBounds();
     evilCircle2.collisionDetect();
-    evilCircle2count.textContent = "SCORE: "+evilCircle2.score;
+    evilCircle2score.textContent = "SCORE: "+evilCircle2.score;
 
 
 
