@@ -104,7 +104,7 @@ class Ball extends Shape {
                 const distance = Math.sqrt(dx * dx + dy * dy);
 
                 if (distance < this.size + ball.size) {
-                    ball.color = this.color = randomRGB();
+                   ball.color = this.color = randomRGB();
                     ball.size = this.size = 20;
             }
         }
@@ -130,64 +130,64 @@ class EvilCircle extends Shape {
             window.addEventListener('keydown', (e) => {
                 switch(e.key) {
                     case "ArrowLeft":
-                        this.x.evilCircle[0] -= this.velX.evilCircle[0];
+                        this.x.evilCircle1 -= this.velX.evilCircle1;
                         break;
                     case "ArrowRight": 
-                        this.x.evilCircle[0] += this.velX.evilCircle[0];
+                        this.x.evilCircle1 += this.velX.evilCircle1;
                         break;
                     case "ArrowUp":
-                        this.y.evilCircle[0] -= this.velY.evilCircle[0];
+                        this.y.evilCircle1 -= this.velY.evilCircle1;
                         break;
                     case "ArrowDown":
-                        this.y.evilCircle[0] += this.velY.evilCircle[0];
+                        this.y.evilCircle1 += this.velY.evilCircle1;
                         break;  
                         case "a":
-                            this.x.evilCircle[1] -= this.velX.evilCircle[1];
+                            this.x.evilCircle2 -= this.velX.evilCircle2;
                             break;
                         case "d": 
-                            this.x.evilCircle[1] += this.velX.evilCircle[1];
+                            this.x.evilCircle2 += this.velX.evilCircle2;
                             break;
                         case "w":
-                            this.y.evilCircle[1] -= this.velY.evilCircle[1];
+                            this.y.evilCircle2 -= this.velY.evilCircle2;
                             break;
                         case "s":
-                            this.y.evilCircle[1] += this.velY.evilCircle[1];
+                            this.y.evilCircle2 += this.velY.evilCircle2;
                             break;              
                          }             
                      
 
                 if ("ArrowLeft" && "ArrowUp") {
-                    this.x.evilCircle[0] -= this.velX.evilCircle[0];
-                    this.y.evilCircle[0] -= this.velY.evilCircle[0];
+                    this.x.evilCircle1 -= this.velX.evilCircle1;
+                    this.y.evilCircle1 -= this.velY.evilCircle1;
                 } 
                 if("ArrowLeft" && "ArrowDown") {
-                    this.x.evilCircle[0] -= this.velX.evilCircle[0];
-                    this.y.evilCircle[0] += this.velY.evilCircle[0];
+                    this.x.evilCircle1 -= this.velX.evilCircle1;
+                    this.y.evilCircle1 += this.velY.evilCircle1;
                 }
                 if ("ArrowRight" && "ArrowUp") {
-                    this.x.evilCircle[0] += this.velX.evilCircle[0];
-                    this.y.evilCircle[0] -= this.velY.evilCircle[0];
+                    this.x.evilCircle1 += this.velX.evilCircle1;
+                    this.y.evilCircle1 -= this.velY.evilCircle1;
                 }
                 if ("ArrowRight" && "ArrowDown") {
-                    this.x.evilCircle[0] += this.velX.evilCircle[0];
-                    this.y.evilCircle[0] += this.velY.evilCircle[0];
+                    this.x.evilCircle1 += this.velX.evilCircle1;
+                    this.y.evilCircle1 += this.velY.evilCircle1;
                 //diagonals
                 }
                 if ("a" && "w") {
-                    this.x.evilCircle[1] -= this.velX.evilCircle[1];
-                    this.y.evilCircle[1] -= this.velY.evilCircle[1];
+                    this.x.evilCircle2 -= this.velX.evilCircle2;
+                    this.y.evilCircle2 -= this.velY.evilCircle2;
                 } 
                 if("a" && "s") {
-                    this.x.evilCircle[1] -= this.velX.evilCircle[1];
-                    this.y.evilCircle[1] += this.velY.evilCircle[1];
+                    this.x.evilCircle2 -= this.velX.evilCircle2;
+                    this.y.evilCircle2 += this.velY.evilCircle2;
                 }
                 if ("d" && "w") {
-                    this.x.evilCircle[1] += this.velX.evilCircle[1];
-                    this.y.evilCircle[1] -= this.velY.evilCircle[1];
+                    this.x.evilCircle2 += this.velX.evilCircle2;
+                    this.y.evilCircle2 -= this.velY.evilCircle2;
                 }
                 if ("d" && "s") {
-                    this.x.evilCircle[1] += this.velX.evilCircle[1];
-                    this.y.evilCircle[1] += this.velY.evilCircle[1];
+                    this.x.evilCircle2 += this.velX.evilCircle2;
+                    this.y.evilCircle2 += this.velY.evilCircle2;
                 }
     });
     }
@@ -257,16 +257,24 @@ while (balls.length < 25) {
         //pushes balls until there are 25 balls created onto the array
     }
 
-const evilCircles = [];
-while (evilCircles.length < 2) {
-const evilCircle = new EvilCircle(
+// const evilCircles = [];
+// while (evilCircles.length < 2) {
+// const evilCircle = new EvilCircle(
+//     random(0, width),
+//     random(0, height)
+// )
+//     //creates a new evilCircle object instance so that the evil circle is in the program
+//     evilCircles.push(evilCircle);
+
+// }
+const evilCircle1 = new EvilCircle(
+        random(0, width),
+        random(0, height)
+);
+const evilCircle2 = new EvilCircle(
     random(0, width),
     random(0, height)
-)
-    //creates a new evilCircle object instance so that the evil circle is in the program
-    evilCircles.push(evilCircle);
-
-}
+);
 
 
 const loop = function () {
@@ -281,12 +289,18 @@ const loop = function () {
          }
          //these functions are only called if the ball exists
      }
-     for (const evilCircle of evilCircles) {
-     evilCircle.draw();
-     evilCircle.checkBounds(); 
-     evilCircle.collisionDetect();
-     }
+    //  for (const evilCircle of evilCircles) {
+    //  evilCircle.draw();
+    //  evilCircle.checkBounds(); 
+    //  evilCircle.collisionDetect();
+    //  }
      //the evil ball instance's draw, checkBounds, and collisionDetection methods are called on every iteration of the loop 
+    evilCircle1.draw();
+    evilCircle1.checkBounds();
+    evilCircle1.collisionDetect();
+    evilCircle2.draw();
+    evilCircle2.checkBounds();
+    evilCircle2.collisionDetect();
 
 
 
