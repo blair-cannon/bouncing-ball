@@ -124,78 +124,7 @@ class EvilCircle extends Shape {
         //velX and velY hardcoded to 20
         this.color = 'white';
         this.size = 10;
-    
-    
-
-            window.addEventListener('keydown', (e) => {
-                switch(e.key) {
-                    case "ArrowLeft":
-                        this.x.evilCircle1 -= this.velX.evilCircle1;
-                        break;
-                    case "ArrowRight": 
-                        this.x.evilCircle1 += this.velX.evilCircle1;
-                        break;
-                    case "ArrowUp":
-                        this.y.evilCircle1 -= this.velY.evilCircle1;
-                        break;
-                    case "ArrowDown":
-                        this.y.evilCircle1 += this.velY.evilCircle1;
-                        break;  
-                        case "a":
-                            this.x.evilCircle2 -= this.velX.evilCircle2;
-                            break;
-                        case "d": 
-                            this.x.evilCircle2 += this.velX.evilCircle2;
-                            break;
-                        case "w":
-                            this.y.evilCircle2 -= this.velY.evilCircle2;
-                            break;
-                        case "s":
-                            this.y.evilCircle2 += this.velY.evilCircle2;
-                            break;              
-                         }             
-                     
-
-                if ("ArrowLeft" && "ArrowUp") {
-                    this.x.evilCircle1 -= this.velX.evilCircle1;
-                    this.y.evilCircle1 -= this.velY.evilCircle1;
-                } 
-                if("ArrowLeft" && "ArrowDown") {
-                    this.x.evilCircle1 -= this.velX.evilCircle1;
-                    this.y.evilCircle1 += this.velY.evilCircle1;
-                }
-                if ("ArrowRight" && "ArrowUp") {
-                    this.x.evilCircle1 += this.velX.evilCircle1;
-                    this.y.evilCircle1 -= this.velY.evilCircle1;
-                }
-                if ("ArrowRight" && "ArrowDown") {
-                    this.x.evilCircle1 += this.velX.evilCircle1;
-                    this.y.evilCircle1 += this.velY.evilCircle1;
-                //diagonals
-                }
-                if ("a" && "w") {
-                    this.x.evilCircle2 -= this.velX.evilCircle2;
-                    this.y.evilCircle2 -= this.velY.evilCircle2;
-                } 
-                if("a" && "s") {
-                    this.x.evilCircle2 -= this.velX.evilCircle2;
-                    this.y.evilCircle2 += this.velY.evilCircle2;
-                }
-                if ("d" && "w") {
-                    this.x.evilCircle2 += this.velX.evilCircle2;
-                    this.y.evilCircle2 -= this.velY.evilCircle2;
-                }
-                if ("d" && "s") {
-                    this.x.evilCircle2 += this.velX.evilCircle2;
-                    this.y.evilCircle2 += this.velY.evilCircle2;
-                }
-    });
     }
-
-    //key codes for arrow keys Left, Up, Right, Down are 37, 38, 39, 40
-    //this adds a key down event to the window so that when a key is pressed,
-    //the event key is consulted to see which key is pressed and if it is one of the specified keys,
-    //the evil circle will move
         draw() {
             ctx.beginPath();
             ctx.strokeStyle = this.color;
@@ -269,11 +198,80 @@ while (balls.length < 25) {
 // }
 const evilCircle1 = new EvilCircle(
         random(0, width),
-        random(0, height)
+        random(0, height),
+        window.addEventListener('keydown', (e) => {
+            switch(e.key) {
+                case "ArrowLeft":
+                    evilCircle1.x -= evilCircle1.velX;
+                    break;
+                case "ArrowRight": 
+                evilCircle1.x += evilCircle1.velX;
+                    break;
+                case "ArrowUp":
+                    evilCircle1.y -= evilCircle1.velY;
+                    break;
+                case "ArrowDown":
+                    evilCircle1.y += evilCircle1.velY;
+                    break;  
+            }
+                    if ("ArrowLeft" && "ArrowUp") {
+                        evilCircle1.x -= evilCircle1.velX;
+                        evilCircle1.y -= evilCircle1.velY;
+                    } 
+                    if("ArrowLeft" && "ArrowDown") {
+                        evilCircle1.x -= evilCircle1.velX;
+                        evilCircle1.y += evilCircle1.velY;
+                    }
+                    if ("ArrowRight" && "ArrowUp") {
+                        evilCircle1.x += evilCircle1.velX;
+                        evilCircle1.y -= evilCircle1.velY;
+                    }
+                    if ("ArrowRight" && "ArrowDown") {
+                        evilCircle1.x += evilCircle1.velX;
+                        evilCircle1.y += evilCircle1.velY;
+                    }
+                })
 );
+    //key codes for arrow keys Left, Up, Right, Down are 37, 38, 39, 40
+    //this adds a key down event to the window so that when a key is pressed,
+    //the event key is consulted to see which key is pressed and if it is one of the specified keys,
+    //the evil circle will move
 const evilCircle2 = new EvilCircle(
     random(0, width),
-    random(0, height)
+    random(0, height),
+    window.addEventListener('keydown', (e) => {
+        switch(e.key) {
+    case "a":
+        evilCircle2.x -= evilCircle2.velX;
+        break;
+    case "d": 
+        evilCircle2.x += evilCircle2.velX;
+        break;
+    case "w":
+        evilCircle2.y -= evilCircle2.velY;
+        break;
+    case "s":
+        evilCircle2.y += evilCircle2.velY;
+        break;              
+     }  
+     if ("a" && "w") {
+        evilCircle2.x -= evilCircle2.velX;
+        evilCircle2.y -= evilCircle2.velY;
+    } 
+    if("a" && "s") {
+        evilCircle2.x -= evilCircle2.velX;
+        evilCircle2.y += evilCircle2.velY;
+    }
+    if ("d" && "w") {
+        evilCircle2.x += evilCircle2.velX;
+        evilCircle2.y -= evilCircle2.velY;
+    }
+    if ("d" && "s") {
+        evilCircle2.x += evilCircle2.velX;
+        evilCircle2.y += evilCircle2.velY;
+    }
+})
+
 );
 
 
