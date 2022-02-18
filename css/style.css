@@ -37,7 +37,7 @@ h1 {
     margin: 0;
     top: 35px;
     left: 15px;
-    color: red;
+    color: Chartreuse;
     font-weight: bold;
 }
 
@@ -46,6 +46,6 @@ h1 {
     margin: 0;
     top: 70px;
     left: 15px;
-    color: green;
+    color: Magenta;
     font-weight: bold;
 }

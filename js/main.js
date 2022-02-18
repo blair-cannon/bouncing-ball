@@ -126,9 +126,10 @@ class EvilCircle extends Shape {
         draw() {
             ctx.beginPath();
             ctx.strokeStyle = this.color;
-            ctx.arc(this.x, this.y, this.size, 0, 2 * Math.PI);
-            ctx.stroke();
-            ctx.lineWidth = 10;
+            ctx.strokeRect(this.x, this.y, 30, 30)
+            //ctx.arc(this.x, this.y, this.size, 0, 2 * Math.PI); CIRCLE
+            //ctx.stroke(); CIRCLE
+            ctx.lineWidth = 15;
         }
         //draws the oject instance on the canvas
         // fillStyle and fill are changed to stroke so that it is not filled in but just an outline
