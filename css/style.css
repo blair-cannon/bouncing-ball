@@ -23,3 +23,29 @@ h1 {
     text-shadow: 0 0 4px white;
 
 }
+
+#ballCount {
+    position: absolute;
+    margin: 0;
+    top: 35px;
+    right: 5px;
+    color: #aaa;
+}
+
+#evilCircle1score {
+    position: absolute;
+    margin: 0;
+    top: 35px;
+    left: 15px;
+    color: yellow;
+    font-weight: bold;
+}
+
+#evilCircle2score {
+    position: absolute;
+    margin: 0;
+    top: 70px;
+    left: 15px;
+    color: Magenta;
+    font-weight: bold;
+}
