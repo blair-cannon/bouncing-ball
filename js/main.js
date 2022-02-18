@@ -2,7 +2,9 @@
 
 const canvas = document.querySelector('canvas');
 const ctx = canvas.getContext('2d');
-const para = document.querySelector('p');
+const para = document.querySelector('ballCount');
+const para1 = document.querySelector('evilCircle1count');
+const para2 = document.querySelector('evilCircle2count');
 //var img = document.getElementById("pig");
 
 //ctx = canvas context (aka like the paper for drawing)
@@ -196,6 +198,8 @@ while (balls.length < 25) {
 //     evilCircles.push(evilCircle);
 
 // }
+let evil1counter = 0;
+
 const evilCircle1 = new EvilCircle(
         random(0, width),
         random(0, height),
@@ -230,8 +234,12 @@ const evilCircle1 = new EvilCircle(
                         evilCircle1.x += evilCircle1.velX;
                         evilCircle1.y += evilCircle1.velY;
                     }
-                })
-);
+                }));
+
+
+
+
+
     //key codes for arrow keys Left, Up, Right, Down are 37, 38, 39, 40
     //this adds a key down event to the window so that when a key is pressed,
     //the event key is consulted to see which key is pressed and if it is one of the specified keys,
@@ -306,8 +314,37 @@ const loop = function () {
      for (const ball of balls) {
          if (ball.exists) counter++;
 
-     para.textContent = "Ball Count: "+counter;
+     ballCount.textContent = "Ball Count: "+counter;
      }
+
+     let evil1counter = 0;
+     for (const ball of balls) {
+    if (ball.exists)
+     {
+        const dx = evilCircle1.x - ball.x;
+        const dy = evilCircle1.y - ball.y;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+
+        if (distance < evilCircle1.size + ball.size) 
+            evil1counter++;
+    
+        }
+        evilCircle1count.textContent = "SCORE: "+evil1counter;
+    }
+
+    let evil2counter = 0;
+    for (const ball of balls) {
+   if (ball.exists)
+    {
+       const dx = evilCircle2.x - ball.x;
+       const dy = evilCircle2.y - ball.y;
+       const distance = Math.sqrt(dx * dx + dy * dy);
+
+       if (distance < evilCircle2.size + ball.size) 
+           evil2counter++;
+       }
+       evilCircle2count.textContent = "SCORE: "+evil2counter;
+   }
 
     requestAnimationFrame(loop);
 };

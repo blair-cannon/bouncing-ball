@@ -24,10 +24,28 @@ h1 {
 
 }
 
-p {
+#ballCount {
     position: absolute;
     margin: 0;
     top: 35px;
     right: 5px;
     color: #aaa;
+}
+
+#evilCircle1count {
+    position: absolute;
+    margin: 0;
+    top: 35px;
+    left: 15px;
+    color: red;
+    font-weight: bold;
+}
+
+#evilCircle2count {
+    position: absolute;
+    margin: 0;
+    top: 70px;
+    left: 15px;
+    color: green;
+    font-weight: bold;
 }
