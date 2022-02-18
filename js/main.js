@@ -17,7 +17,7 @@ const random = (min, max) =>
 
 
 const randomRGB = () => 
-    `rgb(${random(0, 255)},${random(0, 255)},${random(0, 255)})`;  //function to generate random color 
+    `rgb(${random(150, 255)},${random(150, 255)},${random(150, 255)})`;  //function to generate random color 
 
 class Shape {
 
@@ -187,7 +187,7 @@ while (balls.length < 25) {
 const evilCircle1 = new EvilCircle(
         random(0, width),
         random(0, height),
-        color = 'red',
+        color = 'yellow',
 
         window.addEventListener('keydown', (e) => {
             switch(e.key) {
@@ -232,7 +232,7 @@ const evilCircle1 = new EvilCircle(
 const evilCircle2 = new EvilCircle(
     random(0, width),
     random(0, height),
-    color = 'green',
+    color = 'magenta',
 
     window.addEventListener('keydown', (e) => {
         switch(e.key) {
