@@ -1,4 +1,15 @@
-Requirements
+## Name
+Bouncing Balls
+
+## Description
+Interactive, two-player game created with Object-Oriented-Programming.
+
+## Tech Stack
+HTML <br />
+CSS <br />
+Javascript <br />
+
+## Requirements and Stretch Goals
 To complete the assignment, you must complete the following:
 Complete all eight (8) steps from the MDN instructions
 It is easy to just copy their example code, try as hard as you can to type everything on your own, it will benefit you in the long run.
@@ -16,4 +27,4 @@ Change the colors for each item type so it's easier to look and see what everyth
 Instead of changing the color, try changing the size when 2 balls touch each other
 Instead of circles, try using a different shape or image/icon/emoji you like
 
-https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Objects/Object_building_practice#lets_bounce_some_balls 
+
